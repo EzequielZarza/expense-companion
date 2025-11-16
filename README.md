@@ -8,12 +8,12 @@ Se desarrollara durante el transcurso del curso, una aplicacion de *tracking* de
 
 La entidad a trabajar sera "Gastos", la cual tendra los campos:
 
- - Quien Pago: *Objeto Usuario*
- - Descripcion: *String*
- - Monto: *Number*
- - Moneda: *String*
- - Fecha: *Date*
- - Forma de division de gasto: eg, se pago y se divide en partes iguales, usuario x paga totalidad *String*
+ - payer: *Objeto Usuario*
+ - descripcion: *String*
+ - amount: *Number*
+ - currency: *String*
+ - date: *Date*
+ - splitType: eg, se pago y se divide en partes iguales, usuario x paga totalidad *String*
 
 ### Definicion del Contecto de Negocio
 
