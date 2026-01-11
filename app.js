@@ -1,6 +1,6 @@
 import express from "express"
-import { connectDb } from "./database/connection.js";
-import expenseRouter from "./routers/expenseRouter.js";
+import { connectDb } from "./src/database/connection.js";
+import expenseRouter from "./src/routers/expenseRouter.js";
 
 const app = express();
 app.use(express.json());
