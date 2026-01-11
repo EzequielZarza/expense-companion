@@ -1,4 +1,6 @@
+import { z } from "zod"
 import { Expense } from "../models/expenseModel.js";
+import { expenseValidaror, updateexpenseValidaror } from "../validartors/expenseValidator.js";
 
 export const getExpenses = async (req, res) => {
   const expenses = await Expense.find();
@@ -17,6 +19,16 @@ export const getExpense = async ({params: { id }}, res) => {
 export const addExpense = async ({body}, res) => {
   try {
     const { payer, description, amount, currency, splitType } = body;
+
+    const responseValidator = expenseValidaror.safeParse(body)
+
+    if (!responseValidator.success) {
+      return res.status(404).json({
+        success: false,
+        error: z.treeifyError(responseValidator.error)
+      })
+    }
+
     const newExpense = await Expense.create({
       payer,
       description,
@@ -33,6 +45,15 @@ export const addExpense = async ({body}, res) => {
 
 export const updatedExpense = async ({body: updates, params: { id }}, res) => {
   try{
+
+    const responseValidator = updateexpenseValidaror.safeParse(updates)
+
+    if (!responseValidator.success) {
+      return res.status(404).json({
+        success: false,
+        error: z.treeifyError(responseValidator.error)
+      })
+    }
     const updatedExpense = await Expense.findByIdAndUpdate(id, updates, { new: true});
     res.send(updatedExpense);
   }catch(error){
