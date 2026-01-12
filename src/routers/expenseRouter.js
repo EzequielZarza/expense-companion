@@ -3,18 +3,15 @@ import { getExpenses, addExpense, updatedExpense, deleteExpense, getExpense } fr
 
 const expenseRouter = express.Router();
 
-expenseRouter.get('/', (req, res) => {
-  res.send('Expense companion API');
-});
 
-expenseRouter.get('/expenses', getExpenses);
+expenseRouter.get('/', getExpenses);
 
-expenseRouter.get('/expenses/:id', getExpense);
+expenseRouter.get('/:id', getExpense);
 
-expenseRouter.post('/expenses',addExpense);
+expenseRouter.post('/',addExpense);
 
-expenseRouter.patch('/expenses/:id', updatedExpense);
+expenseRouter.patch('/:id', updatedExpense);
 
-expenseRouter.delete('/expenses/:id', deleteExpense);
+expenseRouter.delete('/:id', deleteExpense);
 
 export default expenseRouter

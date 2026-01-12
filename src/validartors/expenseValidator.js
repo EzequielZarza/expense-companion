@@ -1,12 +1,12 @@
-import { z } from "zod"
+import { z } from 'zod'
 
 const expenseValidaror = z.object({
-  payer: z.string("El nombre debe ser textual").min(3, "El nombre debe tener más de un caracter").optional(),
-  description: z.string().min(3, "la descripcion debe tener más de un caracter"),
-  amount: z.number("La cantidad debe ser un número").int().min(0, "La cantidad debe ser un numero positivo mayor a 0"),
-  currency: z.string().min(3, "El tipo de cambio debe tener más de un caracter").optional(),
-  date: z.date().min(3, "Debe tener fecha").optional(),
-  splitType: z.string().min(3, "La division de gasto tiene que tener mas de un caracter").optional(),
+  payer: z.string('Name must be a real three').min(3, 'Name must be more than three character').optional(),
+  description: z.string().min(3, 'Description must have more than three character'),
+  amount: z.number('Amount must be a number').int().min(0, 'Amount must be more than cero'),
+  currency: z.string().min(3, 'Currency must have more than three character').optional(),
+  date: z.date().min(3, 'There must have a date').optional(),
+  splitType: z.string().min(3, 'split type must have more than three character').optional(),
 })
 
 const updateexpenseValidaror = expenseValidaror.partial()

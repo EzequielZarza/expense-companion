@@ -4,8 +4,7 @@ import jwt from 'jsonwebtoken'
 
 const register = async (req, res) => {
   try {
-    const { body } = req
-    const { username, email, password } = body
+    const { body: { username, email, password } } = req
 
     if (!email || !password) {
       return res.json({ error: 'invalid data' })
@@ -26,4 +25,39 @@ const register = async (req, res) => {
   }
 }
 
-export { register }
+const login = async (req, res) => {
+  try {
+    const { body: {email, password }} = req
+
+    if (!email || !password) {
+      return res.status(400).json({ success: false, error: 'Invalid data' })
+    }
+
+    const foundUser = await User.findOne({ email })
+
+    if (!foundUser) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' })
+    }
+
+    const validatePass = await bcrypt.compare(password, foundUser.password)
+
+    if (!validatePass) {
+      return res.status(401).json({ success: false, error: 'wrong password' })
+    }
+
+    const payload = {
+      _id: foundUser._id,
+      username: foundUser.username,
+      email: foundUser.email
+    }
+
+    const token = jwt.sign(payload, 'SuperSecurePass', { expiresIn: '1h' })
+
+    res.json({ token })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: 'Error interno del servidor' })
+  }
+}
+
+export { register, login }

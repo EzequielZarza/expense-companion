@@ -129,3 +129,19 @@ Se tiene el *endpoint* 'expenses', el cual actualmente soporta las siguientes fu
 > | `200`         | `text/plain;charset=UTF-8`        | `success`                                |
 > | `404`         | `text/plain;charset=UTF-8`        | `error`                                |
 </details>
+
+## Etapa 3
+
+### Validations
+
+Se tienen las validaciones pertinentes para el ingreso o edicion de gastos.
+Son parametros obligatorios el gasto y la descripcion, los otros pueden tener valores por default
+
+### Autenticacion
+
+Se tiene un nuevo endpoint AUTH, que permite registrar usuarios y hacer el log in. Para esto se hicieron
+uso de las bibilotecas *jsonwebtoken* y *bcryptjs*
+
+Con esto en cuenta, ahora, para poder hacer cualquier peticion de las expensas, ahora se tiene que tener
+el token en el header incluido en el cuerpo de la peticion.
+
