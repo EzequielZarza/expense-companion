@@ -7,6 +7,11 @@ export const getExpenses = async (req, res) => {
   res.send(expenses);
 }
 
+export const getLatestExpenses = async (req, res) => {
+  const expenses = await Expense.find().sort({ date: -1 }).limit(3);
+  res.send(expenses);
+}
+
 export const getExpense = async ({params: { id }}, res) => {
   try {
     const expense = await Expense.findById(id)
