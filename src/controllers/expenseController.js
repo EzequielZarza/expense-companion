@@ -12,6 +12,29 @@ export const getLatestExpenses = async (req, res) => {
   res.send(expenses);
 }
 
+export const getExpensesByUser = async ({query: { payer, shortening }}, res) => {
+  try {
+  const shortPayer = payer?.slice(0, shortening);
+  const expenses = await Expense.find(
+    { payer: { $regex: shortPayer, $options: 'i' } });
+  expenses.length ? res.send(expenses) : res.status(404).json({ message: `No expenses found for user: ${shortPayer}`});
+  } catch(error){
+    res.status(400).json({ message: `Couldn't find expenses for the user due to: ${error}`});
+  }	
+}
+
+export const getExpensesHigherThanValue = async ({query: { value }}, res) => {
+  try {
+  const highestExpenses = await Expense.aggregate([
+    { $match: { amount: { $gte: Number(value) } } },
+    { $sort: { date: -1 } }
+  ]);
+  highestExpenses.length ? res.send(highestExpenses) : res.status(404).json({ message: `No expenses greater that ${value} found.`});
+  } catch(error){
+    res.status(400).json({ message: `Couldn't find expenses greater than ${value} due to: ${error}`});
+  }	
+}
+
 export const getExpense = async ({params: { id }}, res) => {
   try {
     const expense = await Expense.findById(id)

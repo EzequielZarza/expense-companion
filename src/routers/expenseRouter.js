@@ -1,12 +1,24 @@
 import express from "express"
-import { getExpenses, getLatestExpenses, addExpense, updatedExpense, deleteExpense, getExpense } from "../controllers/expenseController.js";
+import {
+  getExpenses,
+  getExpensesByUser,
+  getLatestExpenses,
+  addExpense,
+  updatedExpense,
+  deleteExpense,
+  getExpense,
+  getExpensesHigherThanValue
+} from "../controllers/expenseController.js";
 
 const expenseRouter = express.Router();
-
 
 expenseRouter.get('/', getExpenses);
 
 expenseRouter.get('/latest', getLatestExpenses);
+
+expenseRouter.get('/byPayer/', getExpensesByUser);
+
+expenseRouter.get('/highest/', getExpensesHigherThanValue);
 
 expenseRouter.get('/:id', getExpense);
 
