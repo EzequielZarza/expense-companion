@@ -1,12 +1,12 @@
-import express from "express"
+import express, { Express } from "express"
 import dotenv from 'dotenv'
 dotenv.config();
-import { connectDb } from "./src/database/connection.js";
-import expenseRouter from "./src/routers/expenseRouter.js";
-import authRouter from "./src/routers/authRouter.js";
-import { authMiddleware } from "./src/middlewares/authMiddleware.js"
+import { connectDb } from "./database/connection.ts";
+import expenseRouter from "./routers/expenseRouter.ts";
+import authRouter from "./routers/authRouter.ts";
+import { authMiddleware } from "./middlewares/authMiddleware.ts"
 
-const app = express();
+const app: Express = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 8080; 

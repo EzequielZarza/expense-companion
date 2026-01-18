@@ -1,4 +1,4 @@
-import express from "express"
+import { Router } from "express"
 import {
   getExpenses,
   getExpensesByUser,
@@ -8,9 +8,9 @@ import {
   deleteExpense,
   getExpense,
   getExpensesHigherThanValue
-} from "../controllers/expenseController.js";
+} from "../controllers/expenseController.ts";
 
-const expenseRouter = express.Router();
+const expenseRouter = Router();
 
 expenseRouter.get('/', getExpenses);
 

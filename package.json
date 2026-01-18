@@ -2,11 +2,12 @@
   "name": "expense-companion",
   "version": "1.0.0",
   "description": "Se desarrollara durante el transcurso del curso, una aplicacion de *tracking* de gastos",
-  "main": "index.js",
+  "main": "src/app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node src/app.ts",
+    "dev": "nodemon --exec ts-node src/app.ts",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -15,7 +16,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "bugs": {
     "url": "https://github.com/EzequielZarza/expense-companion/issues"
   },
@@ -29,6 +29,12 @@
     "zod": "^4.2.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.11"
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^20.10.6",
+    "@types/bcryptjs": "^2.4.6",
+    "nodemon": "^3.1.11",
+    "typescript": "^5.3.3",
+    "ts-node-dev": "^2.0.0"
   }
 }

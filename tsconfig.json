@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // Moderno y compatible con Node 16+
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "esModuleInterop": true, // Permite importar módulos
+    "strict": true, // Activa las validaciones más importantes
+    "allowImportingTsExtensions": true,
+    "module": "NodeNext", // Often required alongside it
+    "moduleResolution": "NodeNext" // Often required alongside it
+  }
+}

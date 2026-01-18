@@ -1,8 +1,9 @@
-import { User } from '../models/authModel.js'
+import { User } from '../models/authModel.ts'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import { Request, Response } from 'express'
 
-const register = async (req, res) => {
+const register = async (req: Request, res: Response): Promise<Response | void> => {
   try {
     const { body: { username, email, password } } = req
 
@@ -25,7 +26,7 @@ const register = async (req, res) => {
   }
 }
 
-const login = async (req, res) => {
+const login = async (req: Request, res: Response): Promise<Response | void> => {
   try {
     const { body: {email, password }} = req
 
