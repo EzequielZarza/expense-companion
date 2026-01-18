@@ -2,7 +2,7 @@
 
 Se desarrollara durante el transcurso del curso, una aplicacion de *tracking* de gastos
 
-## Etapa 1
+## Entrega Final
 
 ### Definicion de la entidad principal
 
@@ -20,8 +20,6 @@ La entidad a trabajar sera "Gastos", la cual tendra los campos:
 EL problema a resolver con esta API es tener una forma facil de trackear los gastos una o varias personas,
 y poder gestionar la division de los gastos de manera automatica
 
-## Etapa 2
-
 ### Instalacion y ejecucion del projecto
 
 Para instalar las dependencias del *package.json*, ejecutar ``npm install``
@@ -37,6 +35,8 @@ La conexion se realiza a MongoDB Atlas, cuya URI y nombre de la DB son obtenidas
 
 ### Endpoints
 
+#### Expenses
+
 Se tiene el *endpoint* 'expenses', el cual actualmente soporta las siguientes funcionalidades
 
 <details>
@@ -47,6 +47,61 @@ Se tiene el *endpoint* 'expenses', el cual actualmente soporta las siguientes fu
 > | name      |  type     | data type               | description                                                           |
 > |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
 > | None      |  none | none   | returns an array of all expenses objects  |
+
+
+##### Responses
+
+> | http code     | content-type                      | status                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `text/plain;charset=UTF-8`        | `success`                                |
+
+</details>
+
+<details>
+ <summary><code>GET</code> <code><b>/expenses/latest</b></code> <code>gets most 3 recent expenses done</code></summary>
+
+##### Parameters
+
+> | name      |  type     | data type               | description                                                           |
+> |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
+> | None      |  none | none   | returns an array of all expenses objects  |
+
+
+##### Responses
+
+> | http code     | content-type                      | status                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `text/plain;charset=UTF-8`        | `success`                                |
+
+</details>
+
+<details>
+ <summary><code>GET</code> <code><b>/expenses/byPayer</b></code> <code>gets all expenses done</code></summary>
+
+##### Parameters
+
+> | name      |  type     | data type               | description                                                           |
+> |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
+> | payer      |  query Param | string   | name of the payer to search  |
+> | shortening      |  query Param | string   | shortening for broader search  |
+
+
+##### Responses
+
+> | http code     | content-type                      | status                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `text/plain;charset=UTF-8`        | `success`                                |
+
+</details>
+
+<details>
+ <summary><code>GET</code> <code><b>/expenses/highest</b></code> <code>gets expenses higher than a certain value</code></summary>
+
+##### Parameters
+
+> | name      |  type     | data type               | description                                                           |
+> |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
+> | value      |  query Param | number   | reference value for looking for expenses greater than or equal to  |
 
 
 ##### Responses
@@ -130,18 +185,56 @@ Se tiene el *endpoint* 'expenses', el cual actualmente soporta las siguientes fu
 > | `404`         | `text/plain;charset=UTF-8`        | `error`                                |
 </details>
 
-## Etapa 3
+#### Validations - Expenses
 
-### Validations
+Se tienen las validaciones pertinentes para el ingreso o edicion de 'expenses'.
+Son parametros obligatorios el gasto y la descripcion, los otros pueden tener valores por default.
+Esto se realizo mediante el uso de la biblioteca *zod*.
 
-Se tienen las validaciones pertinentes para el ingreso o edicion de gastos.
-Son parametros obligatorios el gasto y la descripcion, los otros pueden tener valores por default
+#### Auth
 
-### Autenticacion
-
-Se tiene un nuevo endpoint AUTH, que permite registrar usuarios y hacer el log in. Para esto se hicieron
+Se tiene el *endpoint* 'auth', que permite registrar usuarios y hacer el log in. Para esto se hicieron
 uso de las bibilotecas *jsonwebtoken* y *bcryptjs*
-
 Con esto en cuenta, ahora, para poder hacer cualquier peticion de las expensas, ahora se tiene que tener
 el token en el header incluido en el cuerpo de la peticion.
+
+<details>
+ <summary><code>POST</code> <code><b>/register</b></code> <code>creates a new user</code></summary>
+
+##### Parameters
+
+> | name      |  type     | data type               | description                                                           |
+> |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
+> | body      |  required | object (JSON)   | the body must follow the Auth Schema: username, email, password, createdAt, updatedAt |
+
+
+##### Responses
+
+> | http code     | content-type                      | status                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `text/plain;charset=UTF-8`        | `success`                                |
+> | `404`         | `text/plain;charset=UTF-8`        | `error`                                |
+</details>
+
+<details>
+ <summary><code>POST</code> <code><b>/login</b></code> <code>login for a registered user</code></summary>
+
+##### Parameters
+
+> | name      |  type     | data type               | description                                                           |
+> |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
+> | body      |  required | object (JSON)   | the body must have the following parameters: email, password |
+
+
+##### Responses
+
+> | http code     | content-type                      | status                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `text/plain;charset=UTF-8`        | `success`                                |
+> | `404`         | `text/plain;charset=UTF-8`        | `error`                                |
+</details>
+
+
+
+
 
